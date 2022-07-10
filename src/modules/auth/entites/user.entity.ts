@@ -1,7 +1,14 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { Role } from '../../../dto/enums/role.enum';
 import { Auth } from '../../../dto/classes/auth';
 import * as bcrypt from 'bcrypt';
+import { Profile } from '../../profile/profile.entity';
 
 @Entity('users')
 export class User {
@@ -37,4 +44,9 @@ export class User {
     const hash = await bcrypt.hash(password, this.salt);
     return hash === this.password;
   }
+
+  //relation
+  @OneToOne(() => Profile, (profile) => profile.user)
+  @JoinColumn()
+  profile: Profile;
 }

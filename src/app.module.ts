@@ -17,7 +17,7 @@ import { NotificationModule } from './modules/notification/notification.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot(config),
+    TypeOrmModule.forRoot(config.db as TypeOrmModule),
     AuthModule,
     ProfileModule,
     ArtistModule,
